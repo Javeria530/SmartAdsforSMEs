@@ -155,34 +155,6 @@ All 22 tests pass in the released version.
 
 ---
 
-## Project Structure
-
-```
-SmartAdsforSMEs/
-├── backend/
-│   ├── app.py                  # Flask main application
-│   ├── sentiment_service.py    # FastAPI sentiment microservice
-│   ├── services/               # Adapter classes for each AI module
-│   │   ├── gemini_service.py
-│   │   ├── imagen_service.py
-│   │   ├── veo_service.py
-│   │   └── sentiment_adapter.py
-│   ├── controllers/            # Flask route controllers
-│   ├── models/                 # MongoDB data models
-│   ├── tests/                  # pytest test suite
-│   └── requirements.txt
-├── frontend/
-│   ├── src/
-│   │   ├── api.js              # Single API module (all endpoints)
-│   │   ├── views/              # Five main view components
-│   │   └── components/
-│   ├── package.json
-│   └── vite.config.js
-└── README.md
-```
-
----
-
 ## Sentiment Scoring
 
 The two-signal sentiment scorer fuses a RoBERTa text classifier with a
@@ -213,17 +185,5 @@ for details.
   Department of AI and Data Science, FAST-NUCES Chiniot-Faisalabad
 ---
 
-## Citation
-
-If you use SmartAds in your research, please cite:
-
-```
-Iqbal, J., Shah, A. (2026). SmartAds: a multilingual AI advertising platform
-for small and medium-sized enterprises. SoftwareX. Elsevier.
-```
-
----
-
-## Support
 
 For questions or issues, contact: nakhalsheikh4@gmail.com
