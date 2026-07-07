@@ -1,170 +1,235 @@
-# SmartAds - AI-Powered Advertising Platform
+# SmartAds — Multilingual AI Advertising Platform for SMEs
 
-An intelligent advertising platform that uses AI to generate logos, posters, videos, and marketing content.
+SmartAds is an open-source web platform that lets small business owners produce
+professional logos, posters, and video advertisements with voiceover using
+product descriptions written in **Roman Urdu, Hindi, or English** — no design
+skills or English fluency required.
 
-## 🚀 Features
+> Developed as a Final Year Project at FAST-NUCES Chiniot-Faisalabad Campus.  
+> Associated research paper submitted to *SoftwareX* (Elsevier).
 
-- **AI Logo Designer** - Generate professional logos using AI
-- **Poster Creator** - Create stunning marketing posters
-- **Video Generator** - Automated video content creation
-- **Caption Writer** - AI-powered caption generation
-- **Voiceover Maker** - Natural voiceover synthesis
-- **Analytics Dashboard** - Track performance metrics
-- **User Management** - Multi-user support with role-based access
+---
 
-## 📁 Project Structure
+## Features
 
-```
-SMARTADS/
-├── backend/                    # Flask API Backend
-│   ├── config/                 # Configuration files
-│   │   ├── settings.py         # App settings & env vars
-│   │   └── database.py         # MongoDB connection
-│   ├── controllers/            # Route handlers
-│   │   ├── auth_controller.py  # Authentication routes
-│   │   ├── design_controller.py # Design generation routes
-│   │   └── product_controller.py # Product routes
-│   ├── models/                 # Data models/schemas
-│   │   ├── user_model.py       # User schema
-│   │   └── product_model.py    # Product schema
-│   ├── services/               # Business logic
-│   │   ├── auth_service.py     # Auth operations
-│   │   ├── design_service.py   # AI design generation
-│   │   └── product_service.py  # Product operations
-│   ├── middlewares/            # Custom middlewares
-│   │   └── auth_middleware.py  # Auth middleware
-│   ├── routes/                 # Legacy routes (deprecated)
-│   ├── uploads/                # Local file uploads
-│   ├── app.py                  # Main Flask application
-│   └── requirements.txt        # Python dependencies
-│
-├── frontend/                   # React + Vite Frontend
-│   ├── components/             # Reusable UI components
-│   │   ├── common/             # Shared components
-│   │   │   ├── Navbar.jsx
-│   │   │   ├── ThemeToggle.jsx
-│   │   │   └── ...
-│   │   └── Dashboard/          # Dashboard-specific components
-│   ├── views/                  # Page components
-│   │   ├── Dashboard.jsx
-│   │   ├── LandingPage.jsx
-│   │   ├── LoginPage.jsx
-│   │   ├── SignupPage.jsx
-│   │   └── LogoDesigner.jsx
-│   ├── context/                # React Context providers
-│   │   ├── AuthContext.jsx
-│   │   └── ThemeContext.jsx
-│   ├── hooks/                  # Custom React hooks
-│   ├── services/               # API communication
-│   │   └── api.js
-│   ├── utils/                  # Utility functions
-│   │   ├── constants.js
-│   │   └── validators.js
-│   ├── styles/                 # CSS files
-│   │   ├── App.css
-│   │   └── index.css
-│   ├── assets/                 # Static assets
-│   ├── App.jsx                 # Main App component
-│   ├── main.jsx                # Entry point
-│   └── index.html              # HTML template
-│
-├── public/                     # Public static files
-├── .env.example                # Environment variables template
-├── .gitignore                  # Git ignore rules
-├── eslint.config.js            # ESLint configuration
-├── package.json                # NPM dependencies
-├── vite.config.js              # Vite configuration
-└── README.md                   # This file
+| Module | Description |
+|--------|-------------|
+| **Role-based team access** | Owner creates sub-users and assigns only the features each needs |
+| **Prompt normalization** | Gemini rewrites informal Roman Urdu/Hindi text into structured English cinematic prompts |
+| **Logo & poster generation** | Imagen 4 generates brand visuals (1:1 logos, 3:4 posters) |
+| **Video ads with voiceover** | Veo 3.1 produces 16:9 video ads with narration generated natively |
+| **Caption generation** | Ready-to-post social media copy, auto-generated |
+| **Social uploader & scheduler** | Publishes and schedules posts to connected social accounts |
+| **Sentiment analysis** | Hybrid RoBERTa + likes-count engine labels feedback as positive / neutral / negative |
+| **Analytics dashboard** | Tracks per-post sentiment trends over time with adjustable thresholds |
+
+---
+
+## Tech Stack
+
+**Backend**
+- Python 3.10+
+- Flask (main REST API)
+- FastAPI (sentiment microservice)
+- PyTorch + HuggingFace Transformers (`cardiffnlp/twitter-roberta-base-sentiment-latest`)
+- MongoDB Atlas (metadata)
+- Cloudinary (generated media storage)
+
+**Frontend**
+- React 18+ with Vite
+- Tailwind CSS
+- Google OAuth 2.0 + JWT authentication
+
+**AI Services (Google Cloud)**
+- Gemini — prompt normalization and caption generation
+- Imagen 4 — logo and poster generation
+- Veo 3.1 — video ad generation with native voiceover
+
+---
+
+## Prerequisites
+
+- Python >= 3.10
+- Node.js >= 18
+- A Google Cloud account with Gemini, Imagen 4, and Veo 3.1 APIs enabled
+- MongoDB Atlas connection string
+- Cloudinary account credentials
+
+---
+
+## Installation
+
+### 1. Clone the repository
+
+```bash
+git clone https://github.com/Javeria530/SmartAdsforSMEs.git
+cd SmartAdsforSMEs
 ```
 
-## 🛠️ Tech Stack
+### 2. Backend setup
 
-### Frontend
-- **React 19** - UI library
-- **Vite 7** - Build tool
-- **Lucide React** - Icons
-- **Google OAuth** - Authentication
+```bash
+cd backend
+pip install -r requirements.txt
+```
 
-### Backend
-- **Flask** - Python web framework
-- **MongoDB** - Database
-- **Cloudinary** - Image hosting
-- **Google Gemini AI** - AI generation
+### 3. Frontend setup
 
-## 📦 Installation
+```bash
+cd frontend
+npm install
+```
 
-### Prerequisites
-- Node.js 18+
-- Python 3.9+
-- MongoDB Atlas account
-- Cloudinary account
-- Google Cloud Console (for OAuth & Gemini)
+### 4. Environment variables
 
-### Setup
+Create a `.env` file in the `backend/` directory:
 
-1. **Clone the repository**
-   ```bash
-   git clone https://github.com/yourusername/smartads.git
-   cd smartads
-   ```
+```env
+GOOGLE_API_KEY=your_google_cloud_api_key
+MONGODB_URI=your_mongodb_atlas_connection_string
+CLOUDINARY_CLOUD_NAME=your_cloudinary_cloud_name
+CLOUDINARY_API_KEY=your_cloudinary_api_key
+CLOUDINARY_API_SECRET=your_cloudinary_api_secret
+JWT_SECRET=your_jwt_secret_key
+GOOGLE_CLIENT_ID=your_google_oauth_client_id
+GOOGLE_CLIENT_SECRET=your_google_oauth_client_secret
+```
 
-2. **Install frontend dependencies**
-   ```bash
-   npm install
-   ```
+Create a `.env` file in the `frontend/` directory:
 
-3. **Install backend dependencies**
-   ```bash
-   cd backend
-   pip install -r requirements.txt
-   cd ..
-   ```
+```env
+VITE_API_URL=http://localhost:5000
+VITE_GOOGLE_CLIENT_ID=your_google_oauth_client_id
+```
 
-4. **Configure environment variables**
-   ```bash
-   cp .env.example .env
-   # Edit .env with your credentials
-   ```
+---
 
-5. **Run the backend**
-   ```bash
-   cd backend
-   python app.py
-   ```
+## Running the Application
 
-6. **Run the frontend** (in a new terminal)
-   ```bash
-   npm run dev
-   ```
+### Start the Flask REST API
 
-7. **Open in browser**
-   ```
-   http://localhost:5173
-   ```
+```bash
+cd backend
+flask run --port 5000
+```
 
-## 🔧 API Endpoints
+### Start the Sentiment microservice (FastAPI)
 
-### Authentication
-- `POST /api/signup` - Register new user
-- `POST /api/login` - User login
-- `POST /api/google-signup` - Google OAuth
+```bash
+cd backend
+uvicorn sentiment_service:app --port 8000
+```
 
-### User Management
-- `POST /api/add-subuser` - Add sub-user
-- `GET /api/get-subusers/:id` - Get sub-users
-- `PUT /api/update-subuser/:id` - Update sub-user
-- `DELETE /api/delete-subuser/:id` - Delete sub-user
+### Start the React frontend
 
-### Products & Designs
-- `POST /api/add-product` - Add product
-- `POST /api/upload-images` - Upload images
-- `POST /api/generate-design` - Generate AI design
-- `GET /api/designs` - List designs
+```bash
+cd frontend
+npm run dev
+```
 
-## 📄 License
+The application will be available at `http://localhost:5173`.
 
-MIT License
+---
 
-## 👥 Contributors
+## Running Tests
 
-- Your Name - Initial work
+The project includes a pytest/Vitest suite of 22 automated tests covering
+authentication, the sentiment pipeline (thresholds, interpolation, weight
+normalisation, batch error isolation, CSV processing), and the main React views.
+
+### Backend tests
+
+```bash
+cd backend
+pytest tests/ -v
+```
+
+### Frontend tests
+
+```bash
+cd frontend
+npm run test
+```
+
+All 22 tests pass in the released version.
+
+---
+
+## Project Structure
+
+```
+SmartAdsforSMEs/
+├── backend/
+│   ├── app.py                  # Flask main application
+│   ├── sentiment_service.py    # FastAPI sentiment microservice
+│   ├── services/               # Adapter classes for each AI module
+│   │   ├── gemini_service.py
+│   │   ├── imagen_service.py
+│   │   ├── veo_service.py
+│   │   └── sentiment_adapter.py
+│   ├── controllers/            # Flask route controllers
+│   ├── models/                 # MongoDB data models
+│   ├── tests/                  # pytest test suite
+│   └── requirements.txt
+├── frontend/
+│   ├── src/
+│   │   ├── api.js              # Single API module (all endpoints)
+│   │   ├── views/              # Five main view components
+│   │   └── components/
+│   ├── package.json
+│   └── vite.config.js
+└── README.md
+```
+
+---
+
+## Sentiment Scoring
+
+The two-signal sentiment scorer fuses a RoBERTa text classifier with a
+likes-count engagement heuristic:
+
+```
+s = α·sₜ + (1−α)·sₗ     α = 0.75 (default)
+```
+
+Where `sₜ ∈ [−1, 1]` is the text signal and `sₗ ∈ [0, 1]` is the engagement
+signal. Both `α` and the likes thresholds (θ_L, θ_H) are configurable from
+the analytics dashboard without touching code.
+
+---
+
+## License
+
+This project is licensed under the MIT License — see the [LICENSE](LICENSE) file
+for details.
+
+---
+
+## Authors
+
+- **Javeria Iqbal** — [nakhalsheikh4@gmail.com](mailto:nakhalsheikh4@gmail.com)  
+  Department of Computer Science, FAST-NUCES Chiniot-Faisalabad
+- **Dr. Anwar Shah** (Supervisor)  
+  Department of AI and Data Science, FAST-NUCES Chiniot-Faisalabad
+
+## Contributors
+
+- Marwa Najeeb
+- Abdullah
+
+---
+
+## Citation
+
+If you use SmartAds in your research, please cite:
+
+```
+Iqbal, J., Shah, A. (2026). SmartAds: a multilingual AI advertising platform
+for small and medium-sized enterprises. SoftwareX. Elsevier.
+```
+
+---
+
+## Support
+
+For questions or issues, contact: nakhalsheikh4@gmail.com
