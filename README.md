@@ -211,12 +211,6 @@ for details.
   Department of Computer Science, FAST-NUCES Chiniot-Faisalabad
 - **Dr. Anwar Shah** (Supervisor)  
   Department of AI and Data Science, FAST-NUCES Chiniot-Faisalabad
-
-## Contributors
-
-- Marwa Najeeb
-- Abdullah
-
 ---
 
 ## Citation
